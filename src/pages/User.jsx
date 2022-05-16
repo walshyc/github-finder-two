@@ -3,8 +3,8 @@ import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import GithubContext from '../context/github/GithubContext';
-import Spinner from '../components/layout/Spinner';
-import RepoList from '../components/repos/RepoList';
+import Spinner from '../component/layout/Spinner';
+import RepoList from '../component/repos/RepoList';
 import { getUserAndRepos } from '../context/github/GithubActions';
 
 const User = () => {

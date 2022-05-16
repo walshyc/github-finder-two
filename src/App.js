@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Footer from './components/layout/Footer';
-import Navbar from './components/layout/Navbar';
+import Footer from './component/layout/Footer';
+import Navbar from './component/layout/Navbar';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import About from './pages/About';
 import { GithubProvider } from './context/github/GithubContext';
 import { AlertProvider } from './context/alert/AlertContext';
-import Alert from './components/layout/Alert';
+import Alert from './component/layout/Alert';
 import User from './pages/User';
 
 function App() {
