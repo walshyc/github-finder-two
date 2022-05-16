@@ -5,14 +5,23 @@ import { useParams } from 'react-router-dom';
 import GithubContext from '../context/github/GithubContext';
 import Spinner from '../components/layout/Spinner';
 import RepoList from '../components/repos/RepoList';
+import {
+  getUser,
+  getUserAndRepos,
+  getUserRepos,
+} from '../context/github/GithubActions';
 
-const User = ({ match }) => {
-  const { user, repos, getUser, loading, getUserRepos } =
-    useContext(GithubContext);
+const User = () => {
+  const { user, repos, loading, dispatch } = useContext(GithubContext);
+
   const params = useParams();
   useEffect(() => {
-    getUser(params.login);
-    getUserRepos(params.login);
+    dispatch({ type: 'SET_LOADING' });
+    const getUserData = async () => {
+      const userData = await getUserAndRepos(params.login);
+      dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
+    };
+    getUserData();
   }, []);
 
   const {
@@ -77,7 +86,7 @@ const User = ({ match }) => {
                 </a>
               </div>
             </div>
-            <div className="stats bg-base-100 w-full rounded-lg shadow-md">
+            <div className="stats w-full rounded-lg bg-base-100 shadow-md">
               {location && (
                 <div className="stat">
                   <div className="text-md stat-title">Location</div>
@@ -88,11 +97,7 @@ const User = ({ match }) => {
                 <div className="stat">
                   <div className="text-md stat-title">Website</div>
                   <div className="stat-value text-xl">
-                    <a
-                      href={`https://${blog}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
+                    <a href={blog} target="_blank" rel="noreferrer">
                       {blog}
                     </a>
                   </div>
@@ -115,7 +120,7 @@ const User = ({ match }) => {
             </div>
           </div>
         </div>
-        <div className="bg-base-100 stats mb-6 w-full rounded-lg py-5 shadow-md">
+        <div className="stats mb-6 w-full rounded-lg bg-base-100 py-5 shadow-md">
           <div className="stat">
             <div className="stat-figure text-secondary">
               <FaUsers className="text-3xl md:text-5xl"></FaUsers>
