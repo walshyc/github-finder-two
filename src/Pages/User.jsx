@@ -5,11 +5,7 @@ import { useParams } from 'react-router-dom';
 import GithubContext from '../context/github/GithubContext';
 import Spinner from '../components/layout/Spinner';
 import RepoList from '../components/repos/RepoList';
-import {
-  getUser,
-  getUserAndRepos,
-  getUserRepos,
-} from '../context/github/GithubActions';
+import { getUserAndRepos } from '../context/github/GithubActions';
 
 const User = () => {
   const { user, repos, loading, dispatch } = useContext(GithubContext);
@@ -22,7 +18,7 @@ const User = () => {
       dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
     };
     getUserData();
-  }, []);
+  }, [dispatch, params.login]);
 
   const {
     name,
